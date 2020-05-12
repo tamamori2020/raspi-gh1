@@ -1,4 +1,4 @@
-// Echoback.c
+// EchoBack.c
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 -lm libMyPi.a
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
