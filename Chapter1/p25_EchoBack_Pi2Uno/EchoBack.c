@@ -8,7 +8,7 @@
 #include <wiringSerial.h>	//シリアル通信用wiringPi
 #include <termios.h>		//ttyパラメータの構造体
 
-#define BPS 115200			//RS-232通信速度
+#define BPS 115200			//通信速度
 
 int main (void){
 	unsigned char txdData;
