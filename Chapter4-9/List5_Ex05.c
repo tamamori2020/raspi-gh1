@@ -2,33 +2,33 @@
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>			//入出力
-#include <stdlib.h>			//一般ユーティリティ		
-#include <wiringPi.h>		//wiringPi
+#include <stdio.h>          //入出力
+#include <stdlib.h>         //一般ユーティリティ
+#include <wiringPi.h>       //wiringPi
 
-const int ledGpio[4] ={23,22,25,24};   		    //LED GPIOを配列で定義
+const int ledGpio[4] ={23,22,25,24};            //LED GPIOを配列で定義
 const int swGpio[8] = {4,5,6,26,17,27,20,21};   //SW GPIOを配列で定義
 /* グローバル変数　*/
-static volatile int g_state; 	//SW操作の変数
+static volatile int g_state; //SW操作の変数
 /* プロトタイプ宣言 */
-void IntSw0(void);         	//SW0の割込み関数
-void IntSw1(void);         	//SW1の割込み関数
-void IntSw2(void);         	//SW2の割込み関数
-void IntSw3(void);         	//SW3の割込み関数
-void IntSw4(void);         	//SW4の割込み関数
-void IntSw5(void);         	//SW5の割込み関数
-void IntSw6(void);         	//SW6の割込み関数
-void IntSw7(void);         	//SW7の割込み関数
-void Led4bit(int ledData);	//LED0からLED3までの4bitの点灯
+void IntSw0(void);           //SW0の割込み関数
+void IntSw1(void);           //SW1の割込み関数
+void IntSw2(void);           //SW2の割込み関数
+void IntSw3(void);           //SW3の割込み関数
+void IntSw4(void);           //SW4の割込み関数
+void IntSw5(void);           //SW5の割込み関数
+void IntSw6(void);           //SW6の割込み関数
+void IntSw7(void);           //SW7の割込み関数
+void Led4bit(int ledData);   //LED0からLED3までの4bitの点灯
 
 int main (void){
     int i;
-    wiringPiSetupGpio();	//BCMのGPIO番号を使用
-	for(i=0;i<4;i++){		//LED0-LED3を出力に設定
+    wiringPiSetupGpio();    //BCMのGPIO番号を使用
+    for(i=0;i<4;i++){       //LED0-LED3を出力に設定
         pinMode(ledGpio[i], OUTPUT);}
-    for(i=0;i<8;i++){		//SW0-SW7を入力に設定
+    for(i=0;i<8;i++){       //SW0-SW7を入力に設定
         pinMode(swGpio[i], INPUT);}
-	for(i=0;i<8;i++){		//SW0-SW7をプルダウン抵抗をつける
+    for(i=0;i<8;i++){       //SW0-SW7をプルダウン抵抗をつける
         pullUpDnControl(swGpio[i],PUD_DOWN);}
     
     //各SWの立上りエッジで割込みを発生する設定 
@@ -41,8 +41,8 @@ int main (void){
     wiringPiISR(swGpio[6], INT_EDGE_RISING, (void*)IntSw6);
     wiringPiISR(swGpio[7], INT_EDGE_RISING, (void*)IntSw7);
 
-    while(1){						
-		Led4bit(g_state);    //LEDの点灯
+    while(1){
+        Led4bit(g_state);    //LEDの点灯
     }
     return EXIT_SUCCESS;
 }
@@ -71,8 +71,8 @@ void IntSw7(void)  //SW7の割込み関数
 void Led4bit(int ledData)
 {
     int i;
-    for (i=0; i<4; i++){			//LSBのLED0から順番に出力する
-        digitalWrite(ledGpio[i], ledData&1);	//LSBだけの値にして出力
-        ledData = ledData >> 1;					//1bit 右シフト
+    for (i=0; i<4; i++){      //LSBのLED0から順番に出力する
+        digitalWrite(ledGpio[i], ledData&1);    //LSBだけの値にして出力
+        ledData = ledData >> 1;                 //1bit 右シフト
     }
 }

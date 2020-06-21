@@ -20,42 +20,42 @@
 static volatile bool g_sw0; //SW0操作の変数
 static volatile unsigned int g_millis;  //経過時間ms
 /* プロトタイプ宣言 */
-void IntSw0(void);         	//SW0の割込み関数
+void IntSw0(void);          //SW0の割込み関数
 
 int main(void){
     int i;
-    int fd1;			//LCD
-    int fd2;			//ADT7410
-    float temp;			//温度 実数値℃
-    char s1[16] ;		//LCD16文字分のバッファの確保
+    int fd1;            //LCD
+    int fd2;            //ADT7410
+    float temp;         //温度 実数値℃
+    char s1[16] ;       //LCD16文字分のバッファの確保
  
     wiringPiSetupGpio();                //GPIOの初期化命令
     pinMode(SW0, INPUT);                //SW0を入力に設定
     pullUpDnControl(SW0,PUD_DOWN);      //プルダウン抵抗を有効にする
     
-    fd1 = wiringPiI2CSetup(LCD_ADR);	//LCDのI2Cセットアップ
+    fd1 = wiringPiI2CSetup(LCD_ADR);    //LCDのI2Cセットアップ
     i = LcdSetup(fd1);
-    if(i<0){							//初期化に失敗した時
-		printf("LCD setup error.\n");
-		return EXIT_FAILURE;
-	}
+    if(i<0){                            //初期化に失敗した時
+        printf("LCD setup error.\n");
+        return EXIT_FAILURE;
+    }
     fd2 = wiringPiI2CSetup(ADT7410_ADR);//温度センサのI2Cセットアップ
-	
+
     wiringPiISR(SW0, INT_EDGE_RISING, (void*)IntSw0);
     g_millis = millis();
     g_sw0 = true;
     while(1){
-	    temp=Adt7410Read(fd2);          //温度データの取得
-	    if(g_sw0 == true){
-	        sprintf(s1,"%4.1f C",temp);	//摂氏度を文字列
-	    }else{
-	        temp = temp*9/5+32;         //摂氏度から華氏度に変換
-	        sprintf(s1,"%4.1f F",temp);	//華氏度を文字列
-	    }		
-	    LcdClear(fd1);                  //画面クリア
-	    LcdWriteString(fd1, s1);        //LCDに温度を表示
-	    printf("%f  %s\n",temp,s1);     //ターミナルにデバック表示
-	    delay(500);                     //0.5秒待ち時間
+        temp=Adt7410Read(fd2);          //温度データの取得
+        if(g_sw0 == true){
+            sprintf(s1,"%4.1f C",temp); //摂氏度を文字列
+        }else{
+            temp = temp*9/5+32;         //摂氏度から華氏度に変換
+             sprintf(s1,"%4.1f F",temp); //華氏度を文字列
+        }
+        LcdClear(fd1);                  //画面クリア
+        LcdWriteString(fd1, s1);        //LCDに温度を表示
+        printf("%f  %s\n",temp,s1);     //ターミナルにデバック表示
+        delay(500);                     //0.5秒待ち時間
     }
     return EXIT_SUCCESS;
 }

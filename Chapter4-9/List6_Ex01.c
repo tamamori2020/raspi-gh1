@@ -3,7 +3,7 @@
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
 #include <stdio.h>              //入出力
-#include <stdlib.h>             //一般ユーティリティ		
+#include <stdlib.h>             //一般ユーティリティ
 #include <wiringPi.h>           //wiringPi
 #include <softPwm.h>            //ソフトウェア方式PWM(wiringPi)
 
@@ -22,7 +22,7 @@ int main (void){
     for(i=0;i<8;i++){          //SW0-SW7を入力に設定
         pinMode(swGpio[i], INPUT);}
     for(i=0;i<8;i++){          //SW0-SW7をプルダウン抵抗をつける
-        pullUpDnControl(swGpio[i],PUD_DOWN);}	
+        pullUpDnControl(swGpio[i],PUD_DOWN);}
     softPwmCreate(LED0,initialValue,pwmRange); //ソフトPWMの設定
 
     while(1){
@@ -35,8 +35,8 @@ int main (void){
 }
 
 /***************************
- 関数名	int SwChk(void)
- 引数	なし
+ 関数名  int SwChk(void)
+ 引数    なし
  戻り値
  0 何も押されていない
  1 SW0が押された
@@ -53,7 +53,7 @@ int main (void){
  ***************************/
 int SwChk(void){
     int i,swData=0;
-    for(i=0;i<8;i++){	//SW0からSW7まで検査
+    for(i=0;i<8;i++){    //SW0からSW7まで検査
         if (digitalRead(swGpio[i]) == HIGH){
             swData=i+1;
             break;

@@ -2,9 +2,9 @@
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 -lm libMyPi.a
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>		//入出力
-#include <stdlib.h>		//一般ユーティリティ
-#include <wiringPi.h>	//wiringPi
+#include <stdio.h>      //入出力
+#include <stdlib.h>     //一般ユーティリティ
+#include <wiringPi.h>   //wiringPi
 
 const int swGpio[8] = {4,5,6,26,17,27,20,21};   //SW GPIOを配列で定義
 /* プロトタイプの定義 */
@@ -12,46 +12,46 @@ int SwChk(void);
 
 int main (void){
     int i;
-    wiringPiSetupGpio();	    //BCMのGPIO番号を使用
-    for(i=0;i<8;i++){			//SW0-SW7を入力に設定
+    wiringPiSetupGpio();        //BCMのGPIO番号を使用
+    for(i=0;i<8;i++){           //SW0-SW7を入力に設定
         pinMode(swGpio[i], INPUT);}
-    for(i=0;i<8;i++){			//SW0-SW7をプルダウン抵抗をつける
-        pullUpDnControl(swGpio[i],PUD_DOWN);}	
+    for(i=0;i<8;i++){           //SW0-SW7をプルダウン抵抗をつける
+        pullUpDnControl(swGpio[i],PUD_DOWN);}
       
     while(1){
         i = SwChk();        //SWのチェック
         switch(i){
         case 1:
             printf("none\n");
-            system("raspistill -f -ifx none");	    //設定無し
+            system("raspistill -f -ifx none");      //設定無し
             break;
-	    case 2:
+        case 2:
             printf("negative\n");
-            system("raspistill -f -ifx negative");	//反転
+            system("raspistill -f -ifx negative");  //反転
             break;
-	    case 3:
+        case 3:
             printf("solarise\n");
-            system("raspistill -f -ifx solarise");	//ソラライズ
+            system("raspistill -f -ifx solarise");  //ソラライズ
             break;
-	    case 4:
+        case 4:
             printf("posterise\n");
-            system("raspistill -f -ifx posterise");	//ポスタライズ
+            system("raspistill -f -ifx posterise"); //ポスタライズ
             break;
-	    case 5:
+        case 5:
             printf("sketch\n");
-            system("raspistill -f -ifx sketch");	//スケッチ
+            system("raspistill -f -ifx sketch");    //スケッチ
             break;
-	    case 6:
+        case 6:
             printf("denoise\n");
-            system("raspistill -f -ifx denoise");	//ノイズ除去
+            system("raspistill -f -ifx denoise");   //ノイズ除去
             break;
         case 7:
             printf("emboss\n");
-            system("raspistill -f -ifx emboss");	//エンボス
+            system("raspistill -f -ifx emboss");    //エンボス
             break;
-	    case 8:
+        case 8:
             printf("oilpaint\n");
-            system("raspistill -f -ifx oilpaint");	//油絵
+            system("raspistill -f -ifx oilpaint");  //油絵
             break;
         }
     }
@@ -77,7 +77,7 @@ int main (void){
  ***************************/
 int SwChk(void){
     int i,swData=0;
-    for(i=0;i<8;i++){	//SW0からSW7まで検査
+    for(i=0;i<8;i++){    //SW0からSW7まで検査
         if (digitalRead(swGpio[i]) == HIGH){
             swData=i+1;
             break;
