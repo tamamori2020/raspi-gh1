@@ -22,7 +22,7 @@ int main (void){
     while(1){
         for (i= 0;i<4;i++){
             if(digitalRead(swGpio[i])==HIGH){    //SW0の状態から順番に調べてループ処理する
-            digitalWrite(ledGpio[i], HIGH);  //HIGHを出力する
+            digitalWrite(ledGpio[i], HIGH);      //HIGHを出力する
             }else{ 
                 digitalWrite(ledGpio[i], LOW);   //LOWを出力する
             }

@@ -44,7 +44,7 @@ int main(void)
     softPwmCreate(LED0,initialValue,pwmRange); //ソフトPWMの設定
 
     while(1){
-        adcCode = Mcp3208RW(SPI_SS0,MCP3208_CH7);   //VR1の電圧を0-FFFHへA/D変換
+        adcCode = Mcp3208RW(SPI_SS0,MCP3208_CH7);   //可変抵抗VR1の電圧を0-FFFHへA/D変換
 //        value = (float)adcCode/0xfff*100;           //A/D変換した値を0~100へ　map関数使用しない場合
         value = map(adcCode,0,0xfff,0,100);         //A/D変換した値を0~100へ
         #ifdef DEBUG

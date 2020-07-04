@@ -10,6 +10,7 @@
 # bits.
 #
 # By default this script does nothing.
+
 sleep 20
 # Print the IP address
 _IP=$(hostname -I) || true
@@ -17,7 +18,7 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-sudo /home/pi/MyApp/List8-1_Lcd01 "$_IP" &
+sudo /home/pi/MyApp/List7-1_Lcd01 "$_IP" &
 
 exit 0
 

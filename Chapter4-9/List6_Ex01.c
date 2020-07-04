@@ -14,7 +14,7 @@ int SwChk(void);
 
 int main (void){
     int i,swData;
-    int pwmRange = 100;        //100Hzの周期は1ms、pwmRange*100us=10ms
+    int pwmRange = 100;        //100Hzの周期は10ms、pwmRange*100us=10ms
     int initialValue = 0;      //softPwmCreate関数実行時には出力信号0V
     int value;                 //softPwmWrite関数の引数
     wiringPiSetupGpio();       //BCMのGPIO番号を使用

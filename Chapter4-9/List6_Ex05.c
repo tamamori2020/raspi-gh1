@@ -155,7 +155,7 @@ void g(int oct, int solfa, int length){
     int divisor;    //分周値 pwmSetClock関数の引数
     int value;      //tON時間 pwmWrite関数の引数
         if(solfa !=0){         //休符以外の場合、音名の周波数を計算
-            d = solfa - 10;    //引数solfaからテキスト表7-10のdに変換する
+            d = solfa - 10;    //引数solfaからテキスト表6-105のdに変換する
             if (oct == OL){    //1オクターブ下のとき
                 d -= 12;
             }
