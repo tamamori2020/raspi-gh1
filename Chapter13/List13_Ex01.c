@@ -13,12 +13,12 @@
 //com[0]1桁目,com[1]2桁目,com[2]3桁目,com[3]4桁目
 const int com[4] = {9,10,11,18};
 
-//７セグメントLED表示器 a, b, d, d, e, f, g
+//７セグメントLED表示器 a, b, c, d, e, f, g
 const int a2g[7] = {17,27,20,21,12,13,16};//GPIOを配列で定義 
 /*              a
              f     b
                g
-            e     d
+            e     c
               d     dp  */
 const int disp0_9[11][7] = {{1,1,1,1,1,1,0},  //0
                             {0,1,1,0,0,0,0},  //1
@@ -30,7 +30,7 @@ const int disp0_9[11][7] = {{1,1,1,1,1,1,0},  //0
                             {1,1,1,0,0,0,0},  //7
                             {1,1,1,1,1,1,1},  //8
                             {1,1,1,1,0,1,1},  //9
-                            {0,0,0,0,0,0,0}   //消灯
+                            {0,0,0,0,0,0,0}   //ブランク
                             };           
 void Com4bit(int comData);
 
@@ -76,6 +76,6 @@ void Com4bit(int comData){
 //    printf("comData = %d\n",comData);     //デバッグ用
     for (i = 0; i < 4; i++){                //１桁目から順番に出力
         digitalWrite(com[i], comData & 1);
-        comData = comData >> 1;         //1bit 右へシフト
+        comData = comData >> 1;             //1bit 右へシフト
     }
 }

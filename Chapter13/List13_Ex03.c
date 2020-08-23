@@ -14,13 +14,13 @@
 //com[0]1桁目,com[1]2桁目,com[2]3桁目,com[3]4桁目
 const int com[4] = {9,10,11,18};
 
-//７セグメントLED表示器 a, b, d, d, e, f, g
+//７セグメントLED表示器 a, b, c, d, e, f, g
 const int a2g[7] = {17,27,20,21,12,13,16};   //GPIOを配列で定義 
-/*              A
-             F     B
-               G
-            E     C
-              D     Dp  */
+/*              a
+             f     b
+               g
+            e     c
+              d     dp  */
 const int disp0_9[11][7] = {{1,1,1,1,1,1,0},  //0
                             {0,1,1,0,0,0,0},  //1
                             {1,1,0,1,1,0,1},  //2
@@ -31,8 +31,8 @@ const int disp0_9[11][7] = {{1,1,1,1,1,1,0},  //0
                             {1,1,1,0,0,0,0},  //7
                             {1,1,1,1,1,1,1},  //8
                             {1,1,1,1,0,1,1},  //9
-                            {0,0,0,0,0,0,0}   //消灯
-                            };           
+                            {0,0,0,0,0,0,0}   //ブランク
+                            };
 void Com4bit(int comData);
 
 int main(void)
@@ -44,7 +44,7 @@ int main(void)
     
     time_t now;             //time_tは時刻を保存するデータ型
     struct tm *local;       //tmは時刻の構造体で時(tm_hour)、分(tm_min)、秒(tm_sec)等がint型メンバ
-    int hour, minute, second, secondOld = 0;//secondOld printfデバッグで使用
+    int hour, minute, second, secondOld = 0; //secondOld printfデバッグで使用
     wiringPiSetupGpio();            //BCMのGPIO番号を使用
     for(i = 0; i < 4; i++){         //4個のトランジスタを出力に設定
         pinMode(com[i], OUTPUT);
@@ -77,8 +77,9 @@ int main(void)
             }                        
             delay(INTERVAL);        //点灯時間 
         }
+
         //ターミナルにデバック表示
-        if(abs(second - secondOld) >= 1){ //1秒毎に表示
+        if(abs(second - secondOld) >= 1){
             printf("%d時",hour);
             printf("%d分",minute);
             printf("%d秒\n",second);
