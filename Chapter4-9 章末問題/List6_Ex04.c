@@ -8,26 +8,28 @@
 
 #define BUZZER    18        //GPIO18をBUZZERと定義
 
-//Pi3B/3B+とPi4Bのどちらかを選択。
+#define PI4B        //本行をコメントにすると、Pi3/3B+用が設定される。
+#ifdef  PI4B
 //Pi4B(54MHz)のドレミの分周値  
-#define DO1     2064    //低いド SW7
-#define RE      1839    //レ	    SW6
-#define MI      1638    //ミ	    SW5
-#define FA      1546    //ファ   SW4
-#define SO      1378    //ソ	    SW3
-#define RA      1227    //ラ	    SW2
-#define SI      1093    //シ	    SW1
-#define DO2     1032    //高いド SW0
-
+    #define DO1     2064    //低いド SW7
+    #define RE      1839    //レ	    SW6
+    #define MI      1638    //ミ	    SW5
+    #define FA      1546    //ファ   SW4
+    #define SO      1378    //ソ	    SW3
+    #define RA      1227    //ラ	    SW2
+    #define SI      1093    //シ	    SW1
+    #define DO2     1032    //高いド SW0
+#else
 //Pi3B/3B+(19.2MHz)のドレミの分周値 
-//#define DO1       734     //低いド SW7
-//#define RE        654     //レ	    SW6
-//#define MI        582     //ミ	    SW5
-//#define FA        550     //ファ   SW4
-//#define SO        490     //ソ	    SW3
-//#define RA        436     //ラ	    SW2
-//#define SI        389     //シ	    SW1
-//#define DO2       367     //高いド SW0
+    #define DO1       734     //低いド SW7
+    #define RE        654     //レ    SW6
+    #define MI        582     //ミ    SW5
+    #define FA        550     //ファ   SW4
+    #define SO        490     //ソ    SW3
+    #define RA        436     //ラ    SW2
+    #define SI        389     //シ    SW1
+    #define DO2       367     //高いド SW0
+#endif
 
 const int swGpio[8] = {4,5,6,26,17,27,20,21};   //SW GPIOを配列で定義
 /* プロトタイプの定義 */
@@ -112,8 +114,6 @@ int SwChk(void){
             if (digitalRead(swGpio[i]) == HIGH){
                 swData=i+1;
                 break;
-            }else{
-                swData =0;
             }
         }
     return swData;
