@@ -1,16 +1,15 @@
-// List14_Ex07.c
-// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a
+// List14_Ex07A.c
+// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a -lm
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <string.h>         //文字列操作
-#include <ctype.h>          //文字操作
-#include <wiringPi.h>       //wiringPi
-#include <wiringSerial.h>   //シリアルポート
-#include <termios.h>        //ターミナルインタフェース
-#include <unistd.h>         //POSIX
-#include "MyPi.h"           //マイライブラリ
+#include <stdio.h>          //printf,etc
+#include <stdlib.h>         //EXIT_SUCCESS,etc
+#include <termios.h>        //tcgetattr,etc
+#include <unistd.h>         //usleep
+#include <string.h>         //strlen
+#include <ctype.h>          //isdigit
+#include <wiringPi.h>       //wiringPiSetupGpio,etc
+#include <wiringSerial.h>   //serialOpen,etc
 
 #define BPS 115200          //通信速度
 
@@ -77,6 +76,8 @@ int main (void){
                     str[k++] = rxvData;     //配列に受信データを保存
                 }
             }
+        }else{
+            usleep(1000);       //CPU使用率の抑制のため
         }
     }
     serialClose(fd);

@@ -1,13 +1,12 @@
-// List14-2_Rxd01.c
-// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 -lm libMyPi.a
+// List14-4_Rxd02A.c
+// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a -lm
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <wiringPi.h>       //wiringPi
-#include <wiringSerial.h>   //シリアルポート
-#include <termios.h>        //ターミナルインタフェース
-#include <unistd.h>         //POSIX
+#include <stdio.h>          //printf,etc
+#include <stdlib.h>         //EXIT_SUCCESS,etc
+#include <termios.h>        //tcgetattr,etc
+#include <unistd.h>         //usleep
+#include <wiringSerial.h>   //serialOpen,etc
 
 #define BPS 115200          //通信速度
 
@@ -25,12 +24,13 @@ int main (void){
     }
     tcgetattr(fd, &param);          //パラメータの取得
         param.c_cflag &= ~CSIZE;    //データビットのクリア
-        param.c_cflag |= CS8;       //データビットを8bitにセット
-        param.c_cflag &= ~PARENB;   //パリティビットを無効にセット
-        param.c_cflag &= ~CSTOPB;   //ストップビットを1bitにセット
+        param.c_cflag |= CS7;       //データビットを7bitにセット
+        param.c_cflag |= PARENB;    //パリティビットを有効にセット
+        param.c_cflag |= PARODD;    //奇数パリティにセット
+        param.c_cflag |= CSTOPB;    //ストップビットを2bitにセット
     tcsetattr(fd,TCSANOW,&param);   //パラメータの有効化
 
-    printf("mini UART 受信テスト\n");
+    printf("PL011 受信テスト\n");
     serialFlush(fd);                //バッファをクリア
     while(1){
         c = serialDataAvail(fd);    //受信データ数の取得
@@ -40,6 +40,8 @@ int main (void){
                 //serialPutchar(fd,rxdData);      //エコーバック
                 printf("%c",rxdData); fflush(stdout);    //文字の表示
             }
+        }else{
+            usleep(1000);       //CPU使用率の抑制のため
         }
     }
     serialClose(fd);

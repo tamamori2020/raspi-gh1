@@ -1,15 +1,13 @@
 // List14_Ex05.c
-// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a
+// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a -lm
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <wiringPi.h>       //wiringPi
-#include <wiringSerial.h>   //シリアルポート
-#include <termios.h>        //ターミナルインタフェース
-#include <unistd.h>         //POSIX
-#include <wiringPiI2C.h>    //I2C用wiringPi
-#include "MyPi.h"           //マイライブラリ
+#include <stdio.h>          //printf,etc
+#include <stdlib.h>         //EXIT_SUCCESS,etc
+#include <termios.h>        //tcgetattr,etc
+#include <wiringPi.h>       //delay,etc
+#include <wiringSerial.h>   //serialOpen,etc
+#include <wiringPiI2C.h>    //wiringPiI2CSetup,etc
 
 #define BPS     115200      //通信速度
 #define ADT7410_ADR 0x48    //温度センサのスレーブアドレス

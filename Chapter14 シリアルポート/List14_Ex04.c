@@ -1,13 +1,13 @@
 // List14_Ex04.c
-// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a
+// gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a -lm
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <wiringPi.h>       //wiringPi
-#include <wiringSerial.h>   //シリアルポート
-#include <termios.h>        //ターミナルインタフェース
-#include <unistd.h>         //POSIX
+#include <stdio.h>          //printf,etc
+#include <stdlib.h>         //EXIT_SUCCESS,etc
+#include <termios.h>        //tcgetattr,etc
+#include <wiringPi.h>       //wiringPiSetupGpio,etc
+#include <wiringSerial.h>   //serialOpen,etc
+
 
 #define BPS 115200          //通信速度
 
