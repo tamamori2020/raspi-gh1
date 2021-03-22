@@ -16,7 +16,7 @@
 int main (void){
     int i;
     int c;                  //受信データ数
-    char rxvData;
+    char rxdData;
     int fdSri;              //シリアルポート用
     int fdLcd;              //LCD用
     struct termios param;   //構造体変数
@@ -47,12 +47,12 @@ int main (void){
         c = serialDataAvail(fdSri); //受信データ数の取得
         if(c>0){
             for(i=0;i<c;i++){
-                rxvData = serialGetchar(fdSri);
-                serialPutchar(fdSri,rxvData);       //PC側へエコーバック
-                if(0x20<=rxvData && rxvData<=0x7f){
-                    LcdWriteChar(fdLcd,rxvData);    //LCDにの表示
-                    printf("%c",rxvData);fflush(stdout); //ターミナルに表示
-                }else if( rxvData == '\r'){         //改行(\r)なら、
+                rxdData = serialGetchar(fdSri);
+                serialPutchar(fdSri,rxdData);       //PC側へエコーバック
+                if(0x20<=rxdData && rxdData<=0x7f){
+                    LcdWriteChar(fdLcd,rxdData);    //LCDにの表示
+                    printf("%c",rxdData);fflush(stdout); //ターミナルに表示
+                }else if( rxdData == '\r'){         //改行(\r)なら、
                     LcdNewline(fdLcd);              //LCDの改行を実行
                 }else{
                     serialPrintf(fdSri, "文字コードが範囲外です\r\n");

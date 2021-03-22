@@ -23,7 +23,7 @@ int main (void){
     int i;
     int k;              //str[10]配列の番号として使用
     int c;              //受信バイト数
-    int rxvData;        //受信データ
+    int rxdData;        //受信データ
     char str[10];       //受信データの文字列用配列
     int fd;
     struct termios param; //構造体変数
@@ -54,9 +54,9 @@ int main (void){
         c = serialDataAvail(fd);    //受信データ数の取得
         if(c > 0){
             for(i = 0; i < c; i++){
-                rxvData = serialGetchar(fd);
-                serialPutchar(fd,rxvData);  //PC側へエコーバック
-                if( rxvData == '\r'){       //改行(\r)なら、
+                rxdData = serialGetchar(fd);
+                serialPutchar(fd,rxdData);  //PC側へエコーバック
+                if( rxdData == '\r'){       //改行(\r)なら、
                     str[k++] = '\0';        //nullを加えて文字列にする
                     k=0;
                     printf("%s\n",str);     //ターミナルに表示
@@ -73,7 +73,7 @@ int main (void){
                     }
                     serialPrintf(fd,"\r\n10進数で0から15までの値を入力してください >>>");
                 }else{
-                    str[k++] = rxvData;     //配列に受信データを保存
+                    str[k++] = rxdData;     //配列に受信データを保存
                 }
             }
         }else{
