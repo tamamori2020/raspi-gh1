@@ -2,11 +2,10 @@
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 -lm libMyPi.a
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <string.h>         //文字列操作
-#include <wiringPi.h>       //wiringPi
-#include <wiringPiSPI.h>    //SPI用wiringPi
+#include <stdio.h>          //printf
+#include <stdlib.h>         //EXIT_SUCCESS
+#include <wiringPi.h>       //wiringPiSetupGpio,etc
+#include <wiringPiSPI.h>    //wiringPiSPISetup
 #include "MyPi.h"           //マイライブラリ
 
 //SPIインタフェース

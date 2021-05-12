@@ -2,12 +2,11 @@
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 -lm libMyPi.a
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <string.h>         //文字列操作
-#include <wiringPi.h>       //wiringPi
-#include <wiringPiSPI.h>    //SPI用wiringPi
-#include <softPwm.h>        //ソフトウェア方式PWM用wiringPi
+#include <stdio.h>          //printf
+#include <stdlib.h>         //EXIT_SUCCESS
+#include <wiringPi.h>       //wiringPiSetupGpio,etc
+#include <wiringPiSPI.h>    //wiringPiSPISetup
+#include <softPwm.h>        //softPwmCreate,softPwmWrite
 #include "MyPi.h"           //マイライブラリ
 
 //LED
@@ -29,7 +28,7 @@
 #define MCP3208_CH7 7       // CH7入力
 
 #define DEBUG               //#ifdef DEBUGから#endifの有効
-
+/* プロトタイプ宣言 */
 long map(long value, long fromLow, long fromHigh, long toLow, long toHigh);
 
 int main(void)

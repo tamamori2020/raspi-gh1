@@ -2,15 +2,14 @@
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 -lm libMyPi.a
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <string.h>         //文字列操作
-#include <wiringPi.h>       //wiringPi
-#include <wiringPiSPI.h>    //SPI用wiringPi
+#include <stdio.h>          //printf,etc
+#include <stdlib.h>         //EXIT_SUCCESS
+#include <wiringPi.h>       //wiringPiSetupGpio
+#include <wiringPiSPI.h>    //wiringPiSPISetup
 #include "MyPi.h"           //マイライブラリ
 
 //SPIインタフェース
-#define SPI_SS1     1       //スレーブセレクト
+#define SPI_SS1     1       //スレーブセレクト DAコンバータ
 #define SPI_SPEED   500000  //SPIのSCKクロック信号の周波数
 
 //D/Aコンバータ　MCP4922
@@ -22,7 +21,7 @@
 int main (void){
     unsigned int dacCode;
     wiringPiSetupGpio();
-    wiringPiSPISetup(SPI_SS1, SPI_SPEED);	//SPIのセットアップ
+    wiringPiSPISetup(SPI_SS1, SPI_SPEED);   //SPIのセットアップ
     while(1){
         printf("16進数で0からfffまでの値を入力してください >>>");
         scanf("%x",&dacCode);

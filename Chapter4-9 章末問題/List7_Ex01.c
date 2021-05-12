@@ -2,11 +2,10 @@
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 -lm libMyPi.a
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <string.h>         //文字列操作
-#include <wiringPi.h>       //wiringPi
-#include <wiringPiI2C.h>    //I2C用wiringPi
+#include <stdio.h>          //printf
+#include <stdlib.h>
+#include <wiringPi.h>       //delay
+#include <wiringPiI2C.h>    //wiringPiI2CSetup
 #include "MyPi.h"           //マイライブラリ
 
 #define ADT7410_ADR	0x48    //温度センサのスレーブアドレス

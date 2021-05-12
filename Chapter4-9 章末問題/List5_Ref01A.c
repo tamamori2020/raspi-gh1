@@ -1,12 +1,13 @@
+// 修正　usleep(1000); //CPU使用率の抑制のため
 // List5_Ref01A.c
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
+// 修正：CPU使用率の抑制のためusleep(1000)を挿入
 
-#include <stdio.h>          //入出力
-#include <stdlib.h>         //一般ユーティリティ
-#include <string.h>         //文字列操作
-#include <limits.h>         //整数型の大きさ
-#include <wiringPi.h>       //wiringPi
+#include <stdio.h>
+#include <stdlib.h>         //EXIT_SUCCESS
+#include <unistd.h>         //usleep
+#include <wiringPi.h>       //wiringPiSetupGpio,pinMode,etc
 
 #define LED0        23      //GPIO23をLED0と定義
 #define SW0         4       //GPIO4をSW0と定義
@@ -28,7 +29,7 @@ int main(void){
     g_sw0 = 0;
     while(1){
         digitalWrite(LED0,g_sw0);
-        delay(1);           //CPU使用率の低減用
+        usleep(1000);       //CPU使用率の抑制のため
     }
     return EXIT_SUCCESS;
 }
