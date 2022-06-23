@@ -5,34 +5,59 @@
 #include <stdlib.h>         //EXIT_FAILURE,etc
 #include <pthread.h>        //pthread_create,etc
 #include <unistd.h>         //sleep
-#define NUM_THREADS     5   //スレッドの生成数
+
 /* プロトタイプ宣言 */
-void *Hello(void *threadID);
+void *Hello0();
+void *Hello1();
+void *Hello2();
+void *Hello3();
+void *Hello4();
 
 int main(void){
-    unsigned long i;
-    pthread_t thread[NUM_THREADS];
+    pthread_t thread0,thread1,thread2,thread3,thread4;
     
-    for(i = 0; i < NUM_THREADS; i++){
-        if(pthread_create(&thread[i], NULL, Hello, (void *)i) != 0){
-            fprintf(stderr,"Error pthread_create.\n");          //エラー処理
-            exit(EXIT_FAILURE);
-        }else{
-            printf("main: pthread_create thread[%lu].\n", i);   //成功処理
-        }
-    }
+    pthread_create(&thread0,NULL,Hello0,NULL);
+    printf("main: pthread_create thread0.\n");
+    pthread_create(&thread1,NULL,Hello1,NULL);
+    printf("main: pthread_create thread1.\n");
+    pthread_create(&thread2,NULL,Hello2,NULL);
+    printf("main: pthread_create thread2.\n");
+    pthread_create(&thread3,NULL,Hello3,NULL);
+    printf("main: pthread_create thread3.\n");
+    pthread_create(&thread4,NULL,Hello4,NULL);
+    printf("main: pthread_create thread4.\n");
+    
     pthread_exit(NULL);
 }
 
-//関数名  void *Hello(void *threadID)
-//引数    threadID　スレッドID
-//戻り値  なし
-//概要    引数の秒数後に、hello, worldを表示する。
-void *Hello(void *threadID){
-    unsigned long tid;               //thread id
-    tid = (unsigned long)threadID;   //整数型に変換
-    sleep(tid);                      //1秒単位の時間待ち
-    printf("thread[%lu]: hello, world.\n", tid);
+void *Hello0(){
+    sleep(0);                        //0秒の時間待ち
+    printf("thread0: hello, world.\n");
     pthread_exit(NULL);              //スレッドの終了
 }
+
+void *Hello1(){
+    sleep(1);                        //1秒の時間待ち
+    printf("thread1: hello, world.\n");
+    pthread_exit(NULL);              //スレッドの終了
+}
+
+void *Hello2(){
+    sleep(2);                        //2秒の時間待ち
+    printf("thread2: hello, world.\n");
+    pthread_exit(NULL);              //スレッドの終了
+}
+
+void *Hello3(){
+    sleep(3);                        //3秒の時間待ち
+    printf("thread3: hello, world.\n");
+    pthread_exit(NULL);              //スレッドの終了
+}
+
+void *Hello4(){
+    sleep(4);                        //4秒の時間待ち
+    printf("thread4: hello, world.\n");
+    pthread_exit(NULL);              //スレッドの終了
+}
+
 

@@ -23,8 +23,6 @@ int main(void){
     wiringPiSetupGpio();    //BCMのGPIO番号を使用
     pinMode(SW0, INPUT);    //SWを入力に設定
     pinMode(SW1, INPUT);
-    pullUpDnControl(SW0,PUD_DOWN); //SWにプルダウン抵抗をつける
-    pullUpDnControl(SW1,PUD_DOWN);
 
     if(pthread_mutex_init(&mutex, NULL) != 0){  //mutex初期化
         fprintf(stderr,"Error pthread_mutex_init.\n");

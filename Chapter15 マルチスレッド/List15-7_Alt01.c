@@ -22,11 +22,9 @@ int main (void){
     for(i = 0; i < 4; i++){     //LED0からLED3を出力に設定
         pinMode(ledGpio[i], OUTPUT);}
     for(i = 0; i < 8; i++){     //SW0-SW7を入力に設定
-        pinMode(swGpio[i], INPUT);}
-    for(i= 0; i < 8; i++){      //SW0-SW7をプルダウン抵抗をつける
-        pullUpDnControl(swGpio[i],PUD_DOWN);}
-    for(i = 0; i < 8; i++){g_alt[i] = LOW;}  //g_altの初期化
-    
+        pinMode(swGpio[i], INPUT);
+        g_alt[i] = LOW;}         //g_altの初期化
+
     if(pthread_create(&thread0, NULL, ThreadAlt, (void *)DELAYTIME) != 0){
         fprintf(stderr,"Error pthread_create.\n");
         exit(EXIT_FAILURE);

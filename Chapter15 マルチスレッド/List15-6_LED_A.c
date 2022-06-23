@@ -1,7 +1,7 @@
 // List15-6_LED_A.c
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a -lm
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
-// 点滅時間を60秒に変更
+// 点滅時間を3分に変更
 #include <stdio.h>          //printf,etc
 #include <stdlib.h>         //EXIT_FAILURE,etc
 #include <pthread.h>        //pthread_create,etc
@@ -9,7 +9,7 @@
 
 #define LED0        23      //LEDのGPIO番号の定義
 #define LED1        22
-#define BLINK_TIME  60000   //点滅時間（期間）ms
+#define BLINK_TIME  180000   //点滅時間（期間）ms
 
 /* プロトタイプ宣言 */
 void *Thread1Hz(void *arg); //1Hz信号
@@ -43,7 +43,7 @@ int main(void){
 void *Thread1Hz(void *arg){
     int i,t;
     t = (int) arg;
-    for(i = 0; i < t/1000; i++){    //点滅の期間を点滅の周期で割る
+    for(i = 0; i < t/1000; i++){    //点滅時間を1Hzの周期(1000ms)で割る
         printf("LED0: #%d\n",i);
         digitalWrite(LED0,HIGH);    //点灯
         delay(500);                 //500ms待つ
@@ -61,7 +61,7 @@ void *Thread1Hz(void *arg){
 void *Thread2Hz(void *arg){
     int i,t;
     t = (int) arg;
-    for(i = 0; i < t/500; i++){
+    for(i = 0; i < t/500; i++){     //点滅時間を2Hzの周期(500ms)で割る
         printf("LED1: #%d\n",i);
         digitalWrite(LED1,HIGH);    //点灯
         delay(250);                 //250ms待つ

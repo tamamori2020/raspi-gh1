@@ -22,8 +22,6 @@ int main(void){
     wiringPiSetupGpio();    //BCMのGPIO番号を使用
     pinMode(SW0, INPUT);    //SWを入力に設定
     pinMode(SW1, INPUT);
-    pullUpDnControl(SW0,PUD_DOWN); //SWにプルダウン抵抗をつける
-    pullUpDnControl(SW1,PUD_DOWN);
     
     if(pthread_create(&thread[0], NULL, ThreadInc, NULL) != 0){
         fprintf(stderr,"Error pthread_create.\n");  //エラー処理

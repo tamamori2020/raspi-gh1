@@ -25,7 +25,6 @@ int main (void){
     pthread_t threadSerial;     //スレッドの宣言
     wiringPiSetupGpio();        //BCMのGPIO番号を使用
     pinMode(SW7,INPUT);         //SW7を入力に設定
-    pullUpDnControl(SW7,PUD_DOWN);      //SW7にプルダウン抵抗をつける
     fdLcd = wiringPiI2CSetup(LCD_ADR);  //LCDのI2Cセットアップ
     if(LcdSetup(fdLcd) < 0){            //LCDの初期化
         printf("LCD setup error.\n");

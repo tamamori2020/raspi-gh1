@@ -25,7 +25,6 @@ int main (void){
 
     for(i = 0; i < 2; i++){         //SW0,SW7を入力に設定
         pinMode(swGpio[i], INPUT);
-        pullUpDnControl(swGpio[i],PUD_DOWN); //プルダウン抵抗をつける
         g_alt[i] = LOW;             //g_altの初期化
     }
     if(pthread_create(&thread0, NULL, ThreadAlt07, (void *)DELAYTIME) != 0){

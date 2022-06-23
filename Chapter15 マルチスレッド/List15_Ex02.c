@@ -27,7 +27,6 @@ int main(void){
 
     for(i = 0; i < 3; i++){     //SW0,SW1,SW7を入力に設定
         pinMode(swGpio[i], INPUT);
-        pullUpDnControl(swGpio[i],PUD_DOWN); //プルダウン抵抗をつける
     }
 
     if(pthread_create(&thread0, NULL, ThreadSW0, NULL) != 0){
@@ -85,7 +84,7 @@ void *ThreadSW1(void *arg){
     pthread_exit(NULL);
 }
 
-//関数名  void *ThreadAlt07(void *arg)
+//関数名  void *ThreadSW7(void *arg)
 //引数    NULL
 //戻り値  NULL
 //概要    SW7がHIGHのとき、プログラムを終了する。
@@ -97,7 +96,7 @@ void *ThreadSW7(void *arg){
         }
         usleep(1000);           //CPU使用率の抑制のため
     }
-    digitalWrite(LED1, LOW);    //LED0の消灯
+    digitalWrite(LED1, LOW);    //LED1の消灯
     printf("End of ThreadSW7\n");
     return NULL;
 }

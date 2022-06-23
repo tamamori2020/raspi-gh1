@@ -25,7 +25,6 @@ int main (void){
     for(i = 0; i < 4; i++){
         pinMode(ledGpio[i], OUTPUT);            //LED0-LED3を出力
         pinMode(swGpio[i], INPUT);              //SW0-SW3を入力
-        pullUpDnControl(swGpio[i], PUD_DOWN);   //SW0-SW3にプルダウン抵抗を付ける
     }
     
     if(pthread_mutex_init(&mutex, NULL) != 0){  //mutex初期化
