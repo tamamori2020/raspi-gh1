@@ -1,4 +1,4 @@
-// List14-4_Rxd02A.c
+// List14-2_Rxd01.c
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a -lm
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
@@ -24,13 +24,12 @@ int main (void){
     }
     tcgetattr(fd, &param);          //パラメータの取得
         param.c_cflag &= ~CSIZE;    //データビットのクリア
-        param.c_cflag |= CS7;       //データビットを7bitにセット
-        param.c_cflag |= PARENB;    //パリティビットを有効にセット
-        param.c_cflag |= PARODD;    //奇数パリティにセット
-        param.c_cflag |= CSTOPB;    //ストップビットを2bitにセット
+        param.c_cflag |= CS8;       //データビットを8bitにセット
+        param.c_cflag &= ~PARENB;   //パリティビットを無効にセット
+        param.c_cflag &= ~CSTOPB;   //ストップビットを1bitにセット
     tcsetattr(fd,TCSANOW,&param);   //パラメータの有効化
 
-    printf("PL011 受信テスト\n");
+    printf("mini UART 受信テスト\n");
     serialFlush(fd);                //バッファをクリア
     while(1){
         c = serialDataAvail(fd);    //受信データ数の取得

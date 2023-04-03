@@ -1,4 +1,4 @@
-// List14_Ex08A.c
+// List14_Ex08.c
 // gcc -Wall -o "%e" "%f" -lwiringPi -lpthread -g -O0 libMyPi.a -lm
 // Geanyのオプションの"%e"は実行ファイル名, "%f"はソースファイル名のこと
 
