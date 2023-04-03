@@ -39,7 +39,7 @@ int main(void)
 {
     int i;
     int fd1;                //LCD用
-    char s1[16];            //LCD16文字分のバッファの確保
+    char s1[17];            //LCD16文字+null
     int fpwm;
     unsigned short adcCode = 0;
     

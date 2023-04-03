@@ -15,8 +15,8 @@ int main(void){
     int i;
     int fd1;        //LCD
     int fd2;        //ADT7410
-    float temp;                         //温度 実数値℃
-    char s1[16];                        //LCD16文字分のバッファの確保
+    double temp;                        //温度 実数値℃
+    char s1[17];                        //LCD16文字+null
 
     fd1 = wiringPiI2CSetup(LCD_ADR);    //LCDのI2Cセットアップ
     i = LcdSetup(fd1);

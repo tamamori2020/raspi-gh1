@@ -12,7 +12,7 @@
 
 int main(void){
     int fd;                             //ファイルディスクリプタ
-    float temp;                         //温度 実数値℃
+    double temp;                         //温度 実数値℃
     fd = wiringPiI2CSetup(ADT7410_ADR); //温度センサのI2Cセットアップ
     while(1){
         temp=Adt7410Read(fd);
