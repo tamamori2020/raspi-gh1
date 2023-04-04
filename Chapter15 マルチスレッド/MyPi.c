@@ -1,6 +1,7 @@
 // MyPi.c
 // gcc -Wall -c "%f" -lwiringPi -lpthread -g -O0
 // Geanyのオプションの"%f"はソースファイル名のこと
+// 2023-04-01 LcdWriteChar関数 非表示文字コード排除の追加
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -127,6 +128,7 @@ int LcdSetup(int fd){
 //概要    1文字の表示
 int LcdWriteChar(int fd, char c){
     int i;
+    if(c<0x08) return -1;	//非表示文字コード0x00-0x07の排除
     //行の最大文字数を超えたかの判定
     if( g_position==(g_charsPerLine*(g_line+1))){
         LcdNewline(fd);     //改行処理

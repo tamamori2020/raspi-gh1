@@ -10,7 +10,7 @@
 void *Hello(void *threadID);
 
 int main(void){
-    unsigned long i;
+    int i;
     pthread_t thread[NUM_THREADS];
     
     for(i = 0; i < NUM_THREADS; i++){
@@ -18,7 +18,7 @@ int main(void){
             fprintf(stderr,"Error pthread_create.\n");          //エラー処理
             exit(EXIT_FAILURE);
         }else{
-            printf("main: pthread_create thread[%lu].\n", i);   //成功処理
+            printf("main: pthread_create thread[%d].\n", i);   //成功処理
         }
     }
     pthread_exit(NULL);
@@ -29,10 +29,10 @@ int main(void){
 //戻り値  なし
 //概要    引数の秒数後に、hello, worldを表示する。
 void *Hello(void *threadID){
-    unsigned long tid;               //thread id
-    tid = (unsigned long)threadID;   //整数型に変換
+    int tid;               //thread id
+    tid = (int)threadID;   //整数型に変換
     sleep(tid);                      //1秒単位の時間待ち
-    printf("thread[%lu]: hello, world.\n", tid);
+    printf("thread[%d]: hello, world.\n", tid);
     pthread_exit(NULL);              //スレッドの終了
 }
 
